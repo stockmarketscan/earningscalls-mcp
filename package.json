@@ -1,0 +1,44 @@
+{
+  "name": "@earningscalls/mcp-server",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for EarningsCalls.dev — gives AI agents direct access to earnings call transcripts, speaker segments, and search.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "earningscalls-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "earnings-calls",
+    "financial-data",
+    "ai-tools",
+    "claude"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stockmarketscan/earningscalls-mcp"
+  }
+}
