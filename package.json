@@ -6,7 +6,8 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "earningscalls-mcp": "dist/index.js"
+    "earningscalls-mcp": "dist/index.js",
+    "earningscalls-mcp-http": "dist/http.js"
   },
   "files": [
     "dist",
@@ -16,6 +17,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
+    "serve": "node dist/http.js",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

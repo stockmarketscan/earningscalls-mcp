@@ -17,7 +17,56 @@ The MCP server is **paid-only**. The free test key does not work here — use th
 
 ## Installation
 
-### Claude Code (CLI)
+Two modes: **Remote** (hosted, zero install) or **Local** (via npx).
+
+### Remote (recommended)
+
+No install required. Point your MCP client at the hosted endpoint:
+
+#### Claude Code (CLI)
+
+```bash
+claude mcp add earningscalls --transport http https://mcp.earningscalls.dev/mcp \
+  --header "X-API-Key: ect_your_key_here"
+```
+
+#### Claude Desktop
+
+```json
+{
+  "mcpServers": {
+    "earningscalls": {
+      "url": "https://mcp.earningscalls.dev/mcp",
+      "headers": {
+        "X-API-Key": "ect_your_key_here"
+      }
+    }
+  }
+}
+```
+
+#### Cursor
+
+Create or edit `.cursor/mcp.json` in your project root:
+
+```json
+{
+  "mcpServers": {
+    "earningscalls": {
+      "url": "https://mcp.earningscalls.dev/mcp",
+      "headers": {
+        "X-API-Key": "ect_your_key_here"
+      }
+    }
+  }
+}
+```
+
+### Local (via npx)
+
+Runs the server as a local process using stdio transport:
+
+#### Claude Code (CLI)
 
 ```bash
 claude mcp add earningscalls \
@@ -25,9 +74,7 @@ claude mcp add earningscalls \
   -- npx -y @earningscalls/mcp-server
 ```
 
-### Claude Desktop
-
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or the equivalent on your OS, and add:
+#### Claude Desktop
 
 ```json
 {
@@ -43,11 +90,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 }
 ```
 
-Restart Claude Desktop.
-
-### Cursor
-
-Create or edit `.cursor/mcp.json` in your project root:
+#### Cursor
 
 ```json
 {
@@ -81,33 +124,21 @@ Create or edit `.cursor/mcp.json` in your project root:
 
 ## Environment Variables
 
+### Local mode (stdio)
+
 | Variable | Required | Default |
 |---|---|---|
 | `EARNINGSCALLS_API_KEY` | **yes** | — |
 | `EARNINGSCALLS_BASE_URL` | no | `https://earningscalls.dev` |
 
----
+### Remote mode (HTTP)
 
-## What to expect on startup
+| Variable | Required | Default |
+|---|---|---|
+| `PORT` | no | `3000` |
+| `EARNINGSCALLS_BASE_URL` | no | `https://earningscalls.dev` |
 
-The server runs a preflight check against `GET /api/v1/me` before accepting any tool calls. On a successful start you'll see a banner in your MCP client's log panel:
-
-```
-┌───────────────────────────────────────────────────────────────┐
-│ ✓  EarningsCalls MCP — connected                              │
-├───────────────────────────────────────────────────────────────┤
-│                                                               │
-│   Plan       : Pro                                            │
-│   Usage      : 342 / 5,000 this month                         │
-│   Auth       : direct                                         │
-│   Endpoint   : https://earningscalls.dev                      │
-│                                                               │
-│   Ready to serve tool calls.                                  │
-│                                                               │
-└───────────────────────────────────────────────────────────────┘
-```
-
-If your key is missing, invalid, or on the free tier, a matching error banner is printed and the process exits with code 1. Your MCP client will mark the server as disconnected. Subscribe or fix the key, then restart the client.
+In remote mode, the API key is provided per-session by the connecting client via `X-API-Key` header.
 
 ---
 
@@ -116,15 +147,20 @@ If your key is missing, invalid, or on the free tier, a matching error banner is
 ```bash
 npm install
 npm run build
+
+# Local stdio mode
 npm start
+
+# Remote HTTP mode
+npm run serve
 ```
 
 Source layout:
 
 ```
 src/
-├── index.ts      # stdio entry + preflight
-├── server.ts     # n/a — server is constructed inline in index.ts
+├── index.ts      # stdio entry + preflight (local mode)
+├── http.ts       # Streamable HTTP entry (remote mode)
 ├── client.ts     # HTTP client for earningscalls.dev API
 ├── config.ts     # env var loading
 ├── messages.ts   # user-facing banners + error hints
