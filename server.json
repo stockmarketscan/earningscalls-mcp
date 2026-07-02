@@ -1,0 +1,45 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.stockmarketscan/earningscalls-mcp",
+  "title": "EarningsCalls.dev",
+  "description": "AI access to 177,000+ earnings call transcripts (17,000+ companies, 70 countries, 2020-present) with role-tagged speaker segments and full-text search.",
+  "version": "0.1.0",
+  "websiteUrl": "https://earningscalls.dev/mcp",
+  "repository": {
+    "url": "https://github.com/stockmarketscan/earningscalls-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@earningscalls/mcp-server",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "EARNINGSCALLS_API_KEY",
+          "description": "Your EarningsCalls.dev API key (ect_...). Paid plan required; get one at https://earningscalls.dev/#pricing",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.earningscalls.dev/mcp",
+      "headers": [
+        {
+          "name": "X-API-Key",
+          "description": "Your EarningsCalls.dev API key (ect_...). Paid plan required.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
