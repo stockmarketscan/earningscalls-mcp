@@ -1,5 +1,6 @@
 {
   "name": "@earningscalls/mcp-server",
+  "mcpName": "io.github.stockmarketscan/earningscalls-mcp",
   "version": "0.1.0",
   "description": "Model Context Protocol server for EarningsCalls.dev — gives AI agents direct access to earnings call transcripts, speaker segments, and search.",
   "license": "MIT",
