@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.stockmarketscan/earningscalls-mcp",
   "title": "EarningsCalls.dev",
-  "description": "AI access to 177,000+ earnings call transcripts (17,000+ companies, 70 countries, 2020-present) with role-tagged speaker segments and full-text search.",
+  "description": "177,000+ earnings call transcripts for AI - speaker segments & full-text search.",
   "version": "0.1.0",
   "websiteUrl": "https://earningscalls.dev/mcp",
   "repository": {
